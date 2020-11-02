@@ -1,6 +1,6 @@
-# Next.js & TailwindCSS Starter
+# LiteDocs
 
-A super simple boilerplate for your Next.js web app built with TypeScript, NextJS, React, and TailwindCSS.
+For quick and easy documentation.
 
 ## Technologies
 

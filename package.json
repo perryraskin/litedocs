@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-tailwindcss-starter",
+  "name": "litedocs",
   "description": "A super simple boilerplate for your Next.js web app",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ."
   },
   "bugs": {
-    "url": "https://github.com/perryraskin/nextjs-tailwindcss-starter/issues"
+    "url": "https://github.com/perryraskin/devdocs/issues"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
