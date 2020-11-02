@@ -47,7 +47,7 @@ const MenuBar: NextPage<Props> = ({}) => {
         </div>
         <div className="text-xl text-white font-bold tracking-tight ml-2">
           <Link href={`/`}>
-            <a>Docs</a>
+            <a>LiteDocs</a>
           </Link>
         </div>
       </div>
