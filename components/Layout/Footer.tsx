@@ -22,7 +22,7 @@ const Footer: NextPage<Props> = ({}) => {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            <span className="ml-3 text-xl">The Store</span>
+            <span className="ml-3 text-xl">Docs</span>
           </a>
           <p className="mt-2 text-sm text-white">
             Air plant banjo lyft occupy retro adaptogen indego
@@ -110,14 +110,14 @@ const Footer: NextPage<Props> = ({}) => {
       <div className="bg-gray-900">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-white text-sm text-center sm:text-left">
-            © 2020 The Store —
+            © 2020 Docs —
             <a
               href="https://twitter.com/"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-gray-100 ml-1"
               target="_blank"
             >
-              @thestore
+              @docs
             </a>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">

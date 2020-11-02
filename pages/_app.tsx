@@ -3,6 +3,7 @@ import Head from "next/head"
 import App from "next/app"
 
 import "../styles/tailwind.css"
+import "easymde/dist/easymde.min.css"
 
 class MyApp extends App {
   render() {
@@ -53,7 +54,9 @@ class MyApp extends App {
           {/* <meta key="twitter:image" property="twitter:image" content="" /> */}
           <meta key="twitter:card" property="twitter:card" content="summary" />
         </Head>
-        <Component {...pageProps} />
+        <div className="bg-gray-100">
+          <Component {...pageProps} />
+        </div>
       </>
     )
   }
