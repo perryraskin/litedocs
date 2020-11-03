@@ -1,23 +1,42 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, User } from "@prisma/client"
+import auth from "../../../../middleware/auth"
 
 export default async function(req: NextApiRequest, res: NextApiResponse) {
+  const userAuth = await auth(req, res)
+  const user = userAuth as User
+
   const prisma = new PrismaClient({ log: ["query"] })
   const {
     query: { id }
   } = req
 
   const entryId = id as unknown
-  const entryIdInt = entryId as string
+  const entryIdString = entryId as string
+
   try {
     const { entry } = req.body
     const { title, tagsText, body, code } = entry
     console.log(req.body)
 
-    const tagsResponse = await handleUpdateTags(prisma, entryIdInt, tagsText)
+    const existingEntry = await prisma.entry.findOne({
+      where: {
+        id: parseInt(entryIdString)
+      },
+      include: {
+        User: true
+      }
+    })
+
+    if (existingEntry.User.issuer !== user.issuer) {
+      res.status(401)
+      res.json({ authorized: false })
+    }
+
+    const tagsResponse = await handleUpdateTags(prisma, entryIdString, tagsText)
 
     const entryResponse = await prisma.entry.update({
-      where: { id: parseInt(entryIdInt) },
+      where: { id: parseInt(entryIdString) },
       data: {
         title,
         tagsText,

@@ -38,7 +38,6 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
     /* get user data from Magic */
     const userMetadata = await magic.users.getMetadataByIssuer(claim.iss)
-    console.log("userMetadata:", userMetadata)
 
     /* check if user is already in */
     const existingUser = await prisma.user.findOne({

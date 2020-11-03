@@ -2,6 +2,7 @@ import React from "react"
 import { NextPage } from "next"
 import Link from "next/link"
 import Router from "next/router"
+import { Magic } from "magic-sdk"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
@@ -13,9 +14,14 @@ import { Entry } from "../../models/interfaces"
 interface Props {}
 
 const Entries: NextPage<Props> = ({}) => {
+  const magic = new Magic(process.env.MAGIC_PUBLIC_KEY_TEST)
+
+  const user = magic.user.getMetadata()
   const [currentEntries, setCurrentEntries] = React.useState(null)
   async function fetchEntriesRequest() {
-    const res = await fetch(`/api/entries`)
+    let res = await fetch(`/api/user/${(await user).issuer}/entries`, {
+      method: "GET"
+    })
     const data = await res.json()
     const { entries } = data
     setCurrentEntries(entries)

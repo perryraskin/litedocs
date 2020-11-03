@@ -44,13 +44,16 @@ const NewDocForm: NextPage<Props> = ({}) => {
       const entryId = window.location.pathname.replace(/[^\d.]/g, "")
       const res = await fetch(`/api/entry/${entryId}`)
       const data = await res.json()
-      const { entry } = data
-      setTitle(entry.title)
-      setTags(entry.tagsText)
-      setDetails(entry.body)
-      setCode(entry.code)
-      setCurrentEntry(entry)
-      return entry
+      console.log(data)
+      const { authorized, entry } = data
+      if (!authorized) router.push("/")
+      else {
+        setTitle(entry.title)
+        setTags(entry.tagsText)
+        setDetails(entry.body)
+        setCode(entry.code)
+        setCurrentEntry(entry)
+      }
     }
   }
 
