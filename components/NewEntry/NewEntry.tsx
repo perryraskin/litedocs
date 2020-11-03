@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react"
 import { NextPage } from "next"
 import Router from "next/router"
+import withLayout from "../../hocs/withLayout"
 import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 
 import NewDocForm from "../Forms/NewDocForm"
 import Section from "../Layout/Section"
 import Login from "../Forms/Login"
-import Store from "../Store"
 
 interface Props {}
 
@@ -28,4 +28,4 @@ const NewEntry: NextPage<Props> = ({}) => {
   else return <Login />
 }
 
-export default NewEntry
+export default withLayout(NewEntry)

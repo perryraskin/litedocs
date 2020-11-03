@@ -10,8 +10,8 @@ interface Props {}
 
 const MenuBar: NextPage<Props> = ({}) => {
   const node = useRef(null)
-  // const [loggedIn, setLoggedIn] = useContext(LoggedInContext)
-  // const [magic] = useContext(MagicContext)
+  const [loggedIn, setLoggedIn] = useContext(LoggedInContext)
+  const [magic] = useContext(MagicContext)
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -44,8 +44,8 @@ const MenuBar: NextPage<Props> = ({}) => {
     fetch(`/api/user/logout`, {
       method: "GET"
     })
-    // setLoggedIn(false)
-    // await magic.user.logout()
+    setLoggedIn(false)
+    await magic.user.logout()
   }
   return (
     <div className="z-40 fixed top-0 w-full px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow bg-gray-900">

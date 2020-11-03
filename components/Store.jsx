@@ -48,4 +48,4 @@ const Store = ({ children }) => {
   )
 }
 
-export default withLayout(Store)
+export default Store
