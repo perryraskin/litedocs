@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react"
 import { NextPage } from "next"
-import Home from "../components/Home/Home"
+
+import HomePage from "./home"
 
 interface Props {}
 
-const HomePage: NextPage<Props> = ({}) => {
-  return <Home />
+const Index: NextPage<Props> = ({}) => {
+  return <HomePage />
 }
 
-export default HomePage
+export default Index

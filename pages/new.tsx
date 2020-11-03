@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react"
 import { NextPage } from "next"
-import NewDocForm from "../components/Forms/NewDocForm"
+
+import NewEntry from "../components/NewEntry/NewEntry"
 
 interface Props {}
 
-const NewDoc: NextPage<Props> = ({}) => {
-  return <NewDocForm />
+const NewEntryPage: NextPage<Props> = ({}) => {
+  return <NewEntry />
 }
 
-export default NewDoc
+export default NewEntryPage
