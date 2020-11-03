@@ -1,5 +1,7 @@
 import * as React from "react"
+import Router from "next/router"
 import { useContext, useState, useEffect, useRef } from "react"
+import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 
 import { NextPage } from "next"
 import Link from "next/link"
@@ -8,6 +10,9 @@ interface Props {}
 
 const MenuBar: NextPage<Props> = ({}) => {
   const node = useRef(null)
+  // const [loggedIn, setLoggedIn] = useContext(LoggedInContext)
+  // const [magic] = useContext(MagicContext)
+
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
   const handleClickOutside = e => {
@@ -30,6 +35,18 @@ const MenuBar: NextPage<Props> = ({}) => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [isDropDownOpen])
+
+  /**
+   * Log user out of of the session with our app (clears the `auth` cookie)
+   * Log the user out of their session with Magic
+   */
+  const handleLogout = async () => {
+    fetch(`/api/user/logout`, {
+      method: "GET"
+    })
+    // setLoggedIn(false)
+    // await magic.user.logout()
+  }
   return (
     <div className="z-40 fixed top-0 w-full px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow bg-gray-900">
       <div className="flex items-center w-2/3">
@@ -102,8 +119,8 @@ const MenuBar: NextPage<Props> = ({}) => {
                 Account Settings
               </a>
               <a
-                href="/"
-                // onClick={handleLogout}
+                href="#"
+                onClick={handleLogout}
                 className="block px-4 py-2 hover:bg-gray-100 hover:text-blue-600"
               >
                 Sign out

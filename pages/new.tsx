@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useContext } from "react"
 import { NextPage } from "next"
-import NewDocForm from "../components/Forms/NewDocForm"
+
+import NewEntry from "../components/NewEntry/NewEntry"
+import Store from "../components/Store"
 
 interface Props {}
 
-const NewDoc: NextPage<Props> = ({}) => {
-  return <NewDocForm />
+const NewEntryPage: NextPage<Props> = ({}) => {
+  return (
+    <Store>
+      <NewEntry />
+    </Store>
+  )
 }
 
-export default NewDoc
+export default NewEntryPage

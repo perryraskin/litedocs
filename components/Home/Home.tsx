@@ -113,8 +113,9 @@ const Home: NextPage<Props> = ({}) => {
                                   {entry.tagsText.split(",").map(tag => {
                                     return (
                                       <span
+                                        key={tag}
                                         className="px-2 inline-flex text-xs leading-5 
-                                font-semibold rounded-full bg-indigo-600 text-white mr-2"
+                                font-semibold rounded-full bg-blue-600 text-white mr-2"
                                       >
                                         {tag}
                                       </span>
