@@ -72,7 +72,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
   } catch (err) {
     res.status(500)
     res.json({ error: err.message })
-    console.error(err.message)
+    console.error(err.message, err.data ? err.data : "")
   } finally {
     await prisma.$disconnect()
   }
