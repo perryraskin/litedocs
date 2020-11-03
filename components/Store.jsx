@@ -18,7 +18,7 @@ const Store = ({ children }) => {
       setIsLoading(true)
 
       /* We initialize Magic in `useEffect` so it has access to the global `window` object inside the browser */
-      let m = new Magic(process.env.MAGIC_PUBLIC_KEY_TEST)
+      let m = new Magic(process.env.MAGIC_PUBLIC_KEY)
       await setMagic(m)
 
       /* On page refresh, send a request to /api/user to see if there's a valid user session */

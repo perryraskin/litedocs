@@ -14,7 +14,7 @@ import { Entry } from "../../models/interfaces"
 interface Props {}
 
 const Entries: NextPage<Props> = ({}) => {
-  const magic = new Magic(process.env.MAGIC_PUBLIC_KEY_TEST)
+  const magic = new Magic(process.env.MAGIC_PUBLIC_KEY)
 
   const user = magic.user.getMetadata()
   const [currentEntries, setCurrentEntries] = React.useState(null)
