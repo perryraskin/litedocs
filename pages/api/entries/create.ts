@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, User } from "@prisma/client"
+import auth from "../../../middleware/auth"
 
 export default async function(req: NextApiRequest, res: NextApiResponse) {
+  const userAuth = await auth(req, res)
+  const user = userAuth as User
+
   const prisma = new PrismaClient({ log: ["query"] })
 
   try {
@@ -13,7 +17,12 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         tagsText,
         body,
         code,
-        dateUpdated: new Date()
+        dateUpdated: new Date(),
+        User: {
+          connect: {
+            issuer: user.issuer
+          }
+        }
       }
     })
 

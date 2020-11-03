@@ -2,6 +2,8 @@ import React from "react"
 import Head from "next/head"
 import App from "next/app"
 
+import Store from "../components/Store"
+
 import "../styles/tailwind.css"
 import "easymde/dist/easymde.min.css"
 
@@ -47,6 +49,9 @@ class MyApp extends App {
           <meta key="twitter:card" property="twitter:card" content="summary" />
         </Head>
         <div className="bg-gray-100">
+          {/* <Store>
+            <Component {...pageProps} />
+          </Store> */}
           <Component {...pageProps} />
         </div>
       </>

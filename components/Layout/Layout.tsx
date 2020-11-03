@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import Head from "next/head"
 import React, { useState, useEffect, useContext } from "react"
 
+import Store from "../Store"
 import MenuBar from "./MenuBar"
 import Footer from "./Footer"
 
