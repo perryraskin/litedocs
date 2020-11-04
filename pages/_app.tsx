@@ -21,11 +21,7 @@ class MyApp extends App {
           <meta key="description" property="description" content="LiteDocs" />
           <title key="title">LiteDocs</title>
           {/* OpenGraph tags */}
-          <meta
-            key="og:url"
-            property="og:url"
-            content="https://github.com/perryraskin/devdocs"
-          />
+          <meta key="og:url" property="og:url" content="http://litedocs.io" />
           <meta key="og:title" property="og:title" content="LiteDocs" />
           <meta
             key="og:description"
