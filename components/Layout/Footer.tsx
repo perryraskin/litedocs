@@ -110,14 +110,14 @@ const Footer: NextPage<Props> = ({}) => {
       <div className="bg-gray-900">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-white text-sm text-center sm:text-left">
-            © 2020 Docs —
+            © 2020 LiteDocs —
             <a
-              href="https://twitter.com/"
+              href="https://twitter.com/litedocs"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-gray-100 ml-1"
               target="_blank"
             >
-              @docs
+              @litedocs
             </a>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
