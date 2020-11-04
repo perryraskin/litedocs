@@ -80,6 +80,8 @@ const Login = () => {
                   Email address
                 </label>
                 <input
+                  id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={e => {
