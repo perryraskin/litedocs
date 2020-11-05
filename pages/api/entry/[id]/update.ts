@@ -24,11 +24,11 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         id: parseInt(entryIdString)
       },
       include: {
-        User: true
+        Author: true
       }
     })
 
-    if (existingEntry.User.issuer !== user.issuer) {
+    if (existingEntry.Author.issuer !== user.issuer) {
       res.status(401)
       res.json({ authorized: false })
     }
