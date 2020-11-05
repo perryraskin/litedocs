@@ -22,9 +22,12 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
   if (method === "GET") {
     try {
-      const entries = await prisma.entry.findMany({
+      const memberships = await prisma.member.findMany({
         where: {
           userId: user.id
+        },
+        include: {
+          Team: true
         },
         orderBy: {
           createdAt: "asc"
@@ -32,7 +35,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
       })
 
       res.status(200)
-      res.json({ authorized: true, entries })
+      res.json({ authorized: true, memberships })
     } catch (err) {
       res.json({ authorized: false, error: err.message })
     } finally {

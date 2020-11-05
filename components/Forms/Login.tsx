@@ -17,6 +17,7 @@ const Login = () => {
   const handleLogin = async () => {
     /* Get DID Token returned from when the email link is clicked */
     const DIDT = await magic.auth.loginWithMagicLink({ email })
+    if (DIDT) setIsLoggingIn(false)
 
     /* Pass the Decentralized ID token in the Authorization header to the database */
     let res = await fetch(`/api/user/login`, {

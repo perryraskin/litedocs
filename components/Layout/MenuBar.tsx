@@ -12,6 +12,7 @@ const MenuBar: NextPage<Props> = ({}) => {
   const node = useRef(null)
   const [loggedIn, setLoggedIn] = useContext(LoggedInContext)
   const [magic] = useContext(MagicContext)
+  const [currentPath, setCurrentPath] = useState("")
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -47,9 +48,16 @@ const MenuBar: NextPage<Props> = ({}) => {
     setLoggedIn(false)
     await magic.user.logout()
   }
+
+  useEffect(() => {
+    const pathName = window.location.pathname
+    if (pathName) {
+      setCurrentPath(pathName)
+    }
+  }, [])
   return (
-    <div className="z-40 fixed top-0 w-full px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow bg-gray-900">
-      <div className="flex items-center w-2/3">
+    <div className="z-40 fixed top-0 w-full px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow bg-gray-800">
+      <div className="flex items-center">
         {/* <input className="bg-gray-200 focus:outline-none focus:shadow-outline focus:bg-white border border-transparent focus:border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal hidden md:block placeholder-gray-700 mr-10" type="text" placeholder="Search..."></input> */}
 
         <div className="p-2 rounded-full hover:bg-gray-200 cursor-pointer hidden">
@@ -68,6 +76,42 @@ const MenuBar: NextPage<Props> = ({}) => {
           </Link>
         </div>
       </div>
+      <div className="hidden md:block">
+        <div
+          className="flex items-baseline space-x-4 fixed left-40 top-4"
+          // style={{ marginLeft: -300 }}
+        >
+          <Link href="/">
+            <a
+              href="/"
+              className={`px-3 py-2 rounded-md text-sm font-medium text-white 
+            focus:outline-none focus:text-white focus:bg-gray-700 hover:text-white
+            ${
+              currentPath === "/"
+                ? "text-white bg-gray-900"
+                : "text-gray-300 hover:bg-gray-700"
+            }`}
+            >
+              Dashboard
+            </a>
+          </Link>
+          <Link href="/teams">
+            <a
+              href="/teams"
+              className={`px-3 py-2 rounded-md text-sm font-medium text-white 
+            focus:outline-none focus:text-white focus:bg-gray-700 hover:text-white
+            ${
+              currentPath === "/teams"
+                ? "text-white bg-gray-900"
+                : "text-gray-300 hover:bg-gray-700"
+            }`}
+            >
+              Teams
+            </a>
+          </Link>
+        </div>
+      </div>
+
       <div className="flex items-center">
         <a
           href="#"
