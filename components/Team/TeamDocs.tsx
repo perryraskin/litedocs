@@ -9,37 +9,43 @@ dayjs.extend(utc)
 
 import Section from "../Layout/Section"
 
-import { Entry } from "../../models/interfaces"
+import { Team, Entry } from "../../models/interfaces"
 
-interface Props {}
+interface Props {
+  team?: Team
+  handle?: string
+}
 
-const Entries: NextPage<Props> = ({}) => {
+const TeamDocs: NextPage<Props> = ({ team, handle }) => {
   const magicKey = process.env.MAGIC_PUBLIC_KEY
     ? process.env.MAGIC_PUBLIC_KEY
     : "pk_live_BA415260994A4F66"
   const magic = new Magic(magicKey)
 
   const user = magic.user.getMetadata()
-  const [currentEntries, setCurrentEntries] = React.useState(null)
-  async function fetchEntriesRequest() {
-    let res = await fetch(`/api/user/${(await user).issuer}/entries`, {
+  const [currentTeam, setCurrentTeam] = React.useState(null)
+  async function fetchTeamRequest() {
+    let res = await fetch(`/api/team/${handle}`, {
       method: "GET"
     })
     const data = await res.json()
     console.log(data)
-    const { entries } = data
-    setCurrentEntries(entries)
+    const { team } = data
+    setCurrentTeam(team)
   }
 
   React.useEffect(() => {
-    fetchEntriesRequest()
+    fetchTeamRequest()
   }, [])
   return (
     <Section extend="mb-10">
       <div>
         <h2 className="mt-6 text-3xl leading-9 font-extrabold">Docs</h2>
       </div>
-      <Link href={`/new`}>
+      <Link
+        href={`/[handle]/new`}
+        as={`/${currentTeam ? currentTeam.handle : ""}/new`}
+      >
         <a>
           <button
             type="button"
@@ -88,8 +94,8 @@ const Entries: NextPage<Props> = ({}) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {currentEntries
-                    ? currentEntries.map((entry: Entry) => {
+                  {currentTeam
+                    ? currentTeam.Entries.map((entry: Entry) => {
                         return (
                           <tr key={entry.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-no-wrap">
@@ -172,4 +178,4 @@ const Entries: NextPage<Props> = ({}) => {
   )
 }
 
-export default Entries
+export default TeamDocs

@@ -9,14 +9,19 @@ import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
 import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 
-import Landing from "./Landing"
-import Entries from "./Entries"
-import Section from "../Layout/Section"
+import Landing from "../Home/Landing"
 import Login from "../Forms/Login"
+import Section from "../Layout/Section"
+import TeamDocs from "./TeamDocs"
 
-interface Props {}
+import { Team } from "../../models/interfaces"
 
-const HomeLayout: NextPage<Props> = ({}) => {
+interface Props {
+  team?: Team
+  handle?: string
+}
+
+const TeamLayout: NextPage<Props> = ({ team, handle }) => {
   const [loggedIn, setLoggedIn] = React.useContext(LoggedInContext)
   const [isLoading, setIsLoading] = React.useContext(LoadingContext)
 
@@ -31,7 +36,7 @@ const HomeLayout: NextPage<Props> = ({}) => {
       </Section>
     )
   } else if (loggedIn) {
-    return <Entries />
+    return <TeamDocs handle={handle} />
   } else
     return (
       <React.Fragment>
@@ -41,4 +46,4 @@ const HomeLayout: NextPage<Props> = ({}) => {
     )
 }
 
-export default withLayout(HomeLayout)
+export default withLayout(TeamLayout)

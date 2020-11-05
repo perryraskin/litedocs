@@ -10,7 +10,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const { entry } = req.body
-    const { title, tagsText, body, code } = entry
+    const { title, tagsText, body, code, teamId } = entry
     const newEntry = await prisma.entry.create({
       data: {
         title,
@@ -18,9 +18,14 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         body,
         code,
         dateUpdated: new Date(),
-        User: {
+        Author: {
           connect: {
             issuer: user.issuer
+          }
+        },
+        Team: {
+          connect: {
+            id: teamId
           }
         }
       }

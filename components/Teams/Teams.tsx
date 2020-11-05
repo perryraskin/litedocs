@@ -9,26 +9,26 @@ dayjs.extend(utc)
 
 import Section from "../Layout/Section"
 
-import { Entry } from "../../models/interfaces"
+import { Member } from "../../models/interfaces"
 
 interface Props {}
 
-const Entries: NextPage<Props> = ({}) => {
+const Teams: NextPage<Props> = ({}) => {
   const magicKey = process.env.MAGIC_PUBLIC_KEY
     ? process.env.MAGIC_PUBLIC_KEY
     : "pk_live_BA415260994A4F66"
   const magic = new Magic(magicKey)
 
   const user = magic.user.getMetadata()
-  const [currentEntries, setCurrentEntries] = React.useState(null)
+  const [memberships, setMemberships] = React.useState(null)
   async function fetchEntriesRequest() {
-    let res = await fetch(`/api/user/${(await user).issuer}/entries`, {
+    let res = await fetch(`/api/user/${(await user).issuer}/teams`, {
       method: "GET"
     })
     const data = await res.json()
     console.log(data)
-    const { entries } = data
-    setCurrentEntries(entries)
+    const { memberships } = data
+    setMemberships(memberships)
   }
 
   React.useEffect(() => {
@@ -37,34 +37,8 @@ const Entries: NextPage<Props> = ({}) => {
   return (
     <Section extend="mb-10">
       <div>
-        <h2 className="mt-6 text-3xl leading-9 font-extrabold">Docs</h2>
+        <h2 className="mt-6 text-3xl leading-9 font-extrabold">Teams</h2>
       </div>
-      <Link href={`/new`}>
-        <a>
-          <button
-            type="button"
-            className="mt-6 mb-6 inline-flex items-center px-4 py-2
-              text-sm leading-5 font-bold rounded-md text-white mr-4
-              bg-blue-600 hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue 
-              focus:border-blue-700 active:bg-blue-700 transition duration-150 ease-in-out"
-          >
-            <svg
-              className="-ml-1 mr-2 h-5 w-5"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              ></path>
-            </svg>
-            New
-          </button>
-        </a>
-      </Link>
       <div className="flex flex-col mt-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -73,35 +47,39 @@ const Entries: NextPage<Props> = ({}) => {
                 <thead>
                   <tr>
                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Title
+                      Name
                     </th>
                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Tags
+                      Handle
                     </th>
                     <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Date Added
-                    </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Date Updated
+                      Date Joined
                     </th>
                     {/* <th className="px-6 py-3 bg-gray-50"></th> */}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {currentEntries
-                    ? currentEntries.map((entry: Entry) => {
+                  {memberships
+                    ? memberships.map((membership: Member) => {
                         return (
-                          <tr key={entry.id} className="hover:bg-gray-50">
+                          <tr key={membership.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-no-wrap">
                               <div className="flex items-center">
+                                <div className="flex-shrink-0 h-10 w-10">
+                                  <img
+                                    className="h-10 w-10 rounded-full"
+                                    src={membership.Team.imageUrl}
+                                    alt=""
+                                  />
+                                </div>
                                 <div className="ml-4">
                                   <div className="text-sm leading-5 font-medium">
                                     <Link
-                                      href="/entry/[entryid]/edit"
-                                      as={`/entry/${entry.id}/edit`}
+                                      href="/[handle]"
+                                      as={`/${membership.Team.handle}`}
                                     >
                                       <a className="text-gray-900">
-                                        {entry.title}
+                                        {membership.Team.name}
                                       </a>
                                     </Link>
                                   </div>
@@ -110,33 +88,15 @@ const Entries: NextPage<Props> = ({}) => {
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap">
                               <div className="text-sm leading-5 text-gray-900">
-                                {entry.tagsText.split(",").map(tag => {
-                                  return (
-                                    <span
-                                      key={tag}
-                                      className="px-2 inline-flex text-xs leading-5 
-                                font-semibold rounded-full bg-blue-600 text-white mr-2"
-                                    >
-                                      {tag}
-                                    </span>
-                                  )
-                                })}
+                                {membership.Team.handle}
                               </div>
-                              {/* <div className="text-sm leading-5 text-gray-500">
-                          Optimization
-                        </div> */}
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap">
                               <div className="text-sm leading-5 text-gray-900">
                                 {dayjs
-                                  .utc(entry.createdAt)
+                                  .utc(membership.createdAt)
                                   .format("MM/DD/YYYY")}
                               </div>
-                            </td>
-                            <td className="text-sm px-6 py-4 whitespace-no-wrap">
-                              {dayjs
-                                .utc(entry.dateUpdated)
-                                .format("MM/DD/YYYY")}
                             </td>
                             {/* <td
                               className="px-6 py-4 whitespace-no-wrap text-right 
@@ -172,4 +132,4 @@ const Entries: NextPage<Props> = ({}) => {
   )
 }
 
-export default Entries
+export default Teams
