@@ -2,7 +2,7 @@ import React from "react"
 import { NextPage } from "next"
 import Link from "next/link"
 import Router from "next/router"
-import { Magic } from "magic-sdk"
+import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
@@ -14,10 +14,7 @@ import { Member } from "../../models/interfaces"
 interface Props {}
 
 const Teams: NextPage<Props> = ({}) => {
-  const magicKey = process.env.MAGIC_PUBLIC_KEY
-    ? process.env.MAGIC_PUBLIC_KEY
-    : "pk_live_BA415260994A4F66"
-  const magic = new Magic(magicKey)
+  const [magic, setMagic] = React.useContext(MagicContext)
 
   const user = magic.user.getMetadata()
   const [memberships, setMemberships] = React.useState(null)

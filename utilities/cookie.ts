@@ -2,7 +2,7 @@ import Iron from "@hapi/iron"
 
 /* defining the cookie attributes */
 export const cookie = {
-  maxAge: 60 * 60, // 1 hour
+  maxAge: 60 * 60 * 24 * 7, // 7 days
   secure: false, // set `true` for https only
   path: "/", // send the cookie on all requests
   httpOnly: true, // makes cookie inaccessible from browser (only transfered through http requests, and protects against XSS attacks)
