@@ -10,8 +10,9 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const { entry } = req.body
-    const { title, tagsText, body, code, teamId } = entry
-    const newEntry = await prisma.entry.create({
+    const { title, tagsText, body, code, handle } = entry
+
+    let entryData = {
       data: {
         title,
         tagsText,
@@ -23,13 +24,31 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
             issuer: user.issuer
           }
         },
-        Team: {
-          connect: {
-            id: teamId
+        Team: undefined
+      }
+    }
+    if (handle) {
+      entryData = {
+        data: {
+          title,
+          tagsText,
+          body,
+          code,
+          dateUpdated: new Date(),
+          Author: {
+            connect: {
+              issuer: user.issuer
+            }
+          },
+          Team: {
+            connect: {
+              handle: handle
+            }
           }
         }
       }
-    })
+    }
+    const newEntry = await prisma.entry.create(entryData)
 
     const newTags = await handleAddTags(prisma, newEntry, tagsText)
 

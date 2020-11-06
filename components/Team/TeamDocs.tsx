@@ -30,8 +30,10 @@ const TeamDocs: NextPage<Props> = ({ team, handle }) => {
     })
     const data = await res.json()
     console.log(data)
-    const { team } = data
-    setCurrentTeam(team)
+    const { authorized, team } = data
+    if (authorized) {
+      setCurrentTeam(team)
+    } else Router.push("/")
   }
 
   React.useEffect(() => {
@@ -39,11 +41,28 @@ const TeamDocs: NextPage<Props> = ({ team, handle }) => {
   }, [])
   return (
     <Section extend="mb-10">
+      <div className="uppercase text-xxs font-semibold mb-4">
+        <Link href="/teams">
+          <a className=" hover:text-gray-500">Teams</a>
+        </Link>{" "}
+        /{" "}
+        {handle ? (
+          <Link href="/[handle]" as={`/${handle}`}>
+            <a className=" hover:text-gray-500">{handle}</a>
+          </Link>
+        ) : null}
+      </div>
+      <div>
+        <img width="100" src={currentTeam ? currentTeam.imageUrl : ""}></img>
+      </div>
       <div>
         <h2 className="mt-6 text-3xl leading-9 font-extrabold">Docs</h2>
       </div>
       <Link
-        href={`/[handle]/new`}
+        href={{
+          pathname: "/[handle]/new",
+          query: { teamId: currentTeam ? currentTeam.Id : "" }
+        }}
         as={`/${currentTeam ? currentTeam.handle : ""}/new`}
       >
         <a>

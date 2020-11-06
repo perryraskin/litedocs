@@ -20,11 +20,20 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         id: parseInt(entryIdInt)
       },
       include: {
-        Author: true
+        Author: true,
+        Team: {
+          include: {
+            Members: true
+          }
+        }
       }
     })
 
-    if (entry.Author.issuer !== user.issuer) {
+    const isMember = entry.Team
+      ? entry.Team.Members.some(m => m.userId === user.id)
+      : false
+    console.log(entry.Author, user)
+    if (entry.Author.issuer !== user.issuer && !isMember) {
       res.status(401)
       res.json({ authorized: false })
     } else {

@@ -38,10 +38,6 @@ const Layout: NextPage<Props> = ({ children }) => {
         <div className="h-screen flex overflow-hidden">
           <div className="flex-1 flex-col relative z-0 overflow-y-auto">
             <MenuBar />
-            <br />
-            <br />
-            <br />
-            <br />
             {children}
             <Footer />
           </div>
