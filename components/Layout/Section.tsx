@@ -1,17 +1,17 @@
-import { NextPage } from "next";
-import Container from "./Container";
+import { NextPage } from "next"
+import Container from "./Container"
 
 interface Props {
-  children: any;
-  extend?: string;
+  children: any
+  extend?: string
 }
 
 const Section: NextPage<Props> = ({ children, extend }) => {
   return (
-    <section className={`${extend}`}>
+    <section className={`mt-32 ${extend}`}>
       <Container>{children}</Container>
     </section>
-  );
-};
+  )
+}
 
-export default Section;
+export default Section

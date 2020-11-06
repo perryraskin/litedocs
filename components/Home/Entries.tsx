@@ -37,7 +37,7 @@ const Entries: NextPage<Props> = ({}) => {
   return (
     <Section extend="mb-10">
       <div>
-        <h2 className="mt-6 text-3xl leading-9 font-extrabold">Docs</h2>
+        <h2 className="mt-6 text-3xl leading-9 font-extrabold">My Docs</h2>
       </div>
       <Link href={`/new`}>
         <a>

@@ -135,6 +135,10 @@
 
 /* MAIN CSS */
 
+.text-xxs {
+  font-size: 0.65rem;
+}
+
 .link-underline {
   @apply -mb-2 border-b-2;
 }
