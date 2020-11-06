@@ -24,7 +24,8 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
     try {
       const entries = await prisma.entry.findMany({
         where: {
-          userId: user.id
+          userId: user.id,
+          teamId: null
         },
         orderBy: {
           createdAt: "asc"

@@ -77,10 +77,7 @@ const MenuBar: NextPage<Props> = ({}) => {
         </div>
       </div>
       <div className="hidden md:block">
-        <div
-          className="flex items-baseline space-x-4 fixed left-40 top-4"
-          // style={{ marginLeft: -300 }}
-        >
+        <div className="flex items-baseline space-x-4 fixed left-40 top-4">
           <Link href="/">
             <a
               href="/"

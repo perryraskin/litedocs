@@ -8,9 +8,13 @@ import NewDocForm from "../Forms/NewDocForm"
 import Section from "../Layout/Section"
 import Login from "../Forms/Login"
 
-interface Props {}
+import { Team } from "../../models/interfaces"
 
-const NewEntry: NextPage<Props> = ({}) => {
+interface Props {
+  handle?: string
+}
+
+const NewEntry: NextPage<Props> = ({ handle }) => {
   const [loggedIn, setLoggedIn] = useContext(LoggedInContext)
   const [isLoading, setIsLoading] = useContext(LoadingContext)
 
@@ -24,7 +28,7 @@ const NewEntry: NextPage<Props> = ({}) => {
         ></img>
       </Section>
     )
-  } else if (loggedIn) return <NewDocForm />
+  } else if (loggedIn) return <NewDocForm handle={handle} />
   else return <Login />
 }
 

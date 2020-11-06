@@ -36,7 +36,11 @@ const TeamLayout: NextPage<Props> = ({ team, handle }) => {
       </Section>
     )
   } else if (loggedIn) {
-    return <TeamDocs handle={handle} />
+    return (
+      <>
+        <TeamDocs handle={handle} />
+      </>
+    )
   } else
     return (
       <React.Fragment>

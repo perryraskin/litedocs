@@ -26,6 +26,9 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
     const existingUser = await prisma.user.findOne({
       where: {
         issuer: userFromCookie.issuer
+      },
+      include: {
+        Memberships: true
       }
     })
 
