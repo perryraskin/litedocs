@@ -2,7 +2,7 @@ import React from "react"
 import { NextPage } from "next"
 import Link from "next/link"
 import Router from "next/router"
-import { Magic } from "magic-sdk"
+import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
@@ -14,10 +14,7 @@ import { Entry } from "../../models/interfaces"
 interface Props {}
 
 const Entries: NextPage<Props> = ({}) => {
-  const magicKey = process.env.MAGIC_PUBLIC_KEY
-    ? process.env.MAGIC_PUBLIC_KEY
-    : "pk_live_BA415260994A4F66"
-  const magic = new Magic(magicKey)
+  const [magic, setMagic] = React.useContext(MagicContext)
 
   const user = magic.user.getMetadata()
   const [currentEntries, setCurrentEntries] = React.useState(null)
@@ -93,19 +90,13 @@ const Entries: NextPage<Props> = ({}) => {
                         return (
                           <tr key={entry.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-no-wrap">
-                              <div className="flex items-center">
-                                <div className="ml-4">
-                                  <div className="text-sm leading-5 font-medium">
-                                    <Link
-                                      href="/entry/[entryid]/edit"
-                                      as={`/entry/${entry.id}/edit`}
-                                    >
-                                      <a className="text-gray-900">
-                                        {entry.title}
-                                      </a>
-                                    </Link>
-                                  </div>
-                                </div>
+                              <div className="text-sm leading-5 font-medium">
+                                <Link
+                                  href="/entry/[entryid]/edit"
+                                  as={`/entry/${entry.id}/edit`}
+                                >
+                                  <a className="text-gray-900">{entry.title}</a>
+                                </Link>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap">

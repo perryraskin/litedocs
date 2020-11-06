@@ -21,7 +21,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
   try {
     /* extract user from cookie */
     userFromCookie = await decryptCookie(req.cookies.auth)
-    console.log("userFromCookie:", userFromCookie)
+
     /* check if user is already in */
     const existingUser = await prisma.user.findOne({
       where: {
