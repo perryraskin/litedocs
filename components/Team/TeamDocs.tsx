@@ -119,8 +119,8 @@ const TeamDocs: NextPage<Props> = ({ team, handle }) => {
                                 <div className="ml-4">
                                   <div className="text-sm leading-5 font-medium">
                                     <Link
-                                      href="/entry/[entryid]/edit"
-                                      as={`/entry/${entry.id}/edit`}
+                                      href="/entry/[entryid]"
+                                      as={`/entry/${entry.id}`}
                                     >
                                       <a className="text-gray-900">
                                         {entry.title}
