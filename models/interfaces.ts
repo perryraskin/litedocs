@@ -18,6 +18,7 @@ export interface Entry {
   dateUpdated: Date
   Tags: Array<Tag>
   Author: User
+  Team: Team
 }
 
 export interface Tag {

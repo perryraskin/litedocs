@@ -18,7 +18,9 @@ const Entries: NextPage<Props> = ({}) => {
 
   const user = magic.user.getMetadata()
   const [currentEntries, setCurrentEntries] = React.useState(null)
+
   async function fetchEntriesRequest() {
+    //console.log(await user)
     let res = await fetch(`/api/user/${(await user).issuer}/entries`, {
       method: "GET"
     })
@@ -92,8 +94,8 @@ const Entries: NextPage<Props> = ({}) => {
                             <td className="px-6 py-4 whitespace-no-wrap">
                               <div className="text-sm leading-5 font-medium">
                                 <Link
-                                  href="/entry/[entryid]/edit"
-                                  as={`/entry/${entry.id}/edit`}
+                                  href="/entry/[entryid]"
+                                  as={`/entry/${entry.id}`}
                                 >
                                   <a className="text-gray-900">{entry.title}</a>
                                 </Link>

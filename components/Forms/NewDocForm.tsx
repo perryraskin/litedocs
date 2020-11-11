@@ -20,7 +20,7 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
   const [tags, setTags] = React.useState("")
   const [details, setDetails] = React.useState("")
   const [code, setCode] = React.useState("")
-  const [isSubmittingForm, setIsSubmittinForm] = React.useState(false)
+  const [isSubmittingForm, setIsSubmittingForm] = React.useState(false)
   const [currentEntry, setCurrentEntry] = React.useState(null)
 
   React.useEffect(() => {
@@ -61,7 +61,7 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
 
   async function sendEntryData(e, entryData) {
     e.preventDefault()
-    setIsSubmittinForm(true)
+    setIsSubmittingForm(true)
 
     let apiUrl = "/api/entries/create"
     let fetchMethod = "POST"
@@ -81,8 +81,8 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
       res.json().then(res => {
         console.log(res)
         const { entryResponse } = res
-        if (entryResponse) router.push(`/entry/${entryResponse.id}/edit`)
-        setIsSubmittinForm(false)
+        if (entryResponse) router.push(`/entry/${entryResponse.id}`)
+        setIsSubmittingForm(false)
       })
     }
   }
