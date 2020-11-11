@@ -5,7 +5,6 @@ import App from "next/app"
 import Store from "../components/Store"
 
 import "../styles/tailwind.css"
-import "../styles/markdown.css"
 import "easymde/dist/easymde.min.css"
 
 class MyApp extends App {
