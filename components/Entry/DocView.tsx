@@ -88,51 +88,37 @@ const TeamDocs: NextPage<Props> = ({ entry }) => {
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
               <div className="m-8">
-                <Markdown className="markdown">{entry.body}</Markdown>
-
-                <div className={`${entry.code.length > 0 ? "" : "hidden"}`}>
-                  <br />
-                  <hr />
-                  <br />
-                  Code:
-                  <Highlight
-                    {...defaultProps}
-                    theme={theme}
-                    code={entry.code
-                      .replace("```", "")
-                      .replace("```", "")
-                      .trim()}
-                    language="jsx"
-                  >
-                    {({
-                      className,
-                      style,
-                      tokens,
-                      getLineProps,
-                      getTokenProps
-                    }) => (
-                      <Pre className={className} style={style}>
-                        {tokens.map((line, i) => (
-                          <Line key={i} {...getLineProps({ line, key: i })}>
-                            <LineNo>{i + 1}</LineNo>
-                            <LineContent>
-                              {line.map((token, key) => (
-                                <span
-                                  key={key}
-                                  {...getTokenProps({ token, key })}
-                                />
-                              ))}
-                            </LineContent>
-                          </Line>
-                        ))}
-                      </Pre>
-                    )}
-                  </Highlight>
-                </div>
+                <Markdown className="markdown-body">
+                  {entry.body.replace(/\\/g, "")}
+                </Markdown>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className={`mt-6 ${entry.code.length > 0 ? "" : "hidden"}`}>
+        Code:
+        <Highlight
+          {...defaultProps}
+          theme={theme}
+          code={entry.code.replace(/\\n/g, "").replace(/\\/g, "")}
+          language="jsx"
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <Pre className={className} style={style}>
+              {tokens.map((line, i) => (
+                <Line key={i} {...getLineProps({ line, key: i })}>
+                  <LineNo>{i + 1}</LineNo>
+                  <LineContent>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </LineContent>
+                </Line>
+              ))}
+            </Pre>
+          )}
+        </Highlight>
       </div>
     </Section>
   )
