@@ -2,6 +2,10 @@
 
 /* MAIN CSS */
 
+.prism-code {
+  @apply rounded-lg;
+}
+
 ul ol ul {
   list-style-type: square;
 }
