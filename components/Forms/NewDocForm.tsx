@@ -6,6 +6,9 @@ import withLayout from "../../hocs/withLayout"
 import utilities from "../../utilities"
 import Editor from "rich-markdown-editor"
 import debounce from "lodash/debounce"
+import Highlight, { defaultProps } from "prism-react-renderer"
+import theme from "prism-react-renderer/themes/nightOwl"
+import CodeEditor from "react-simple-code-editor"
 
 import Button from "../Elements/Button"
 import Section from "../Layout/Section"
@@ -85,6 +88,35 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
         setIsSubmittingForm(false)
       })
     }
+  }
+
+  const styles = {
+    root: {
+      boxSizing: "border-box",
+      fontSize: "14px",
+      fontFamily: '"Dank Mono", "Fira Code", monospace',
+      ...theme.plain
+    }
+  }
+
+  const highlight = code => (
+    <Highlight {...defaultProps} theme={theme} code={code} language="jsx">
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <React.Fragment>
+          {tokens.map((line, i) => (
+            <div {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+        </React.Fragment>
+      )}
+    </Highlight>
+  )
+
+  const onCodeChange = code => {
+    setCode(code)
   }
 
   return (
@@ -201,24 +233,34 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
                 Code
               </label>
               <div className="rounded-md shadow-sm">
-                {/* <textarea
-                        rows={3}
-                        className="form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        value={code}
-                        onChange={() => {}}
-                      /> */}
-                <Editor
+                <textarea
+                  rows={10}
+                  className="form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  value={code}
+                  onChange={e => setCode(e.target.value)}
+                />
+                {/* <Editor
                   id="code"
                   value={
                     currentEntry && currentEntry.code ? currentEntry.code : ""
                   }
                   onChange={handleChangeCode}
                   placeholder={"`var someCode = 'Hello, world!'`"}
-                />
+                /> */}
+                {/* <CodeEditor
+                  value={
+                    currentEntry && currentEntry.code ? currentEntry.code : ""
+                  }
+                  onValueChange={code => setCode(code)}
+                  highlight={highlight}
+                  padding={10}
+                  style={styles.root as React.CSSProperties}
+                /> */}
               </div>
               <p className="mt-2 text-sm text-gray-500">
                 This is a good place to reference large blocks of code, or even
-                an entire file.
+                an entire file. It'll be automatically formatted upon
+                submission.
               </p>
             </div>
           </div>
