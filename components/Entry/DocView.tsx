@@ -10,6 +10,8 @@ import Markdown from "react-markdown"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import theme from "prism-react-renderer/themes/nightOwl"
 import styled from "styled-components"
+import beautify from "js-beautify"
+const beautifyJS = beautify.js
 
 import Section from "../Layout/Section"
 
@@ -101,7 +103,7 @@ const TeamDocs: NextPage<Props> = ({ entry }) => {
         <Highlight
           {...defaultProps}
           theme={theme}
-          code={entry.code.replace(/\\n/g, "").replace(/\\/g, "")}
+          code={beautifyJS(entry.code.replace(/\\n/g, "").replace(/\\/g, ""))}
           language="jsx"
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
