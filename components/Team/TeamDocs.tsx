@@ -131,7 +131,7 @@ const TeamDocs: NextPage<Props> = ({ team, handle }) => {
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap">
-                              <div className="text-sm leading-5 text-gray-900">
+                              <div className="text-sm w-48 whitespace-no-wrap flex flex-row overflow-x-auto leading-5 text-gray-900">
                                 {entry.tagsText.split(",").map(tag => {
                                   return (
                                     <span
