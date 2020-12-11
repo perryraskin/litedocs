@@ -19,6 +19,7 @@ interface Props {
 
 const NewDocForm: NextPage<Props> = ({ handle }) => {
   const router = useRouter()
+  const [isNew, setIsNew] = React.useState(true)
   const [title, setTitle] = React.useState("")
   const [tags, setTags] = React.useState("")
   const [details, setDetails] = React.useState("")
@@ -45,7 +46,11 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
   }, 250)
 
   async function fetchEntryRequest() {
-    if (!window.location.pathname.includes("new")) {
+    if (window.location.pathname.includes("new")) {
+      localStorage.setItem("details", bodyTemplate)
+      setDetails(bodyTemplate)
+    } else {
+      setIsNew(false)
       const entryId = window.location.pathname.replace(/[^\d.]/g, "")
       const res = await fetch(`/api/entry/${entryId}`)
       const data = await res.json()
@@ -204,9 +209,10 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
               </p>
             </div>
             <div className="md:ml-4 mt-6">
-              <label className="block text-sm leading-5 font-medium text-gray-700">
-                Details
+              <label className="block text-sm leading-5 font-medium text-gray-700 mb-1">
+                Body
               </label>
+              <hr></hr>
               <div className="rounded-md shadow-sm">
                 {/* <textarea
                         rows={3}
@@ -216,8 +222,12 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
                       /> */}
                 <Editor
                   id="details"
+                  className="text-sm mt-2"
+                  defaultValue={bodyTemplate}
                   value={
-                    currentEntry && currentEntry.body ? currentEntry.body : ""
+                    currentEntry && currentEntry.body && !isNew
+                      ? currentEntry.body
+                      : bodyTemplate
                   }
                   onChange={handleChangeDetails}
                   placeholder={"This code is meant to..."}
@@ -297,3 +307,41 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
 }
 
 export default withLayout(NewDocForm)
+
+const bodyTemplate = `
+**Client:** Example Client Name
+
+**Database ID:** 000
+
+**Languages:** C#, HTML, JavaScript
+
+**Frameworks:** .NET
+
+**Tools:** Visual Studio 2019, XCode
+
+**Source Code URL:** [https://bitbucket.org/blueswitchny/example-repo](https://bitbucket.org/blueswitchny/example-repo)
+
+## Overview
+
+_Sum up this piece of documentation in a sentence or two._
+
+## Details
+
+_Provide specific details in this section. What is the behavior of the code being referenced? How does the project get published? What are the known issues?_
+
+### Order Export
+
+_This is how we export orders..._
+
+### Publishing
+
+_To publish, go to the Visual Studio menu..._
+
+### Known Issues
+
+_Please note that exporting orders is currently very slow..._
+
+### Credentials
+
+_Username is... password is..._
+`
