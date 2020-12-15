@@ -13,6 +13,8 @@ import CodeEditor from "react-simple-code-editor"
 import Button from "../Elements/Button"
 import Section from "../Layout/Section"
 
+import { Tag } from "../../models/interfaces"
+
 interface Props {
   handle?: string
 }
@@ -27,9 +29,37 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
   const [isSubmittingForm, setIsSubmittingForm] = React.useState(false)
   const [currentEntry, setCurrentEntry] = React.useState(null)
 
+  //state for tags autocomplete dropdown menu
+  const [tagResults, setTagResults] = React.useState(null)
+
   React.useEffect(() => {
     fetchEntryRequest()
   }, [])
+
+  function handleChangeTags(input) {
+    setTags(
+      input
+        .trim()
+        .replace(/ /g, "")
+        .toLowerCase()
+    )
+
+    const tagArray = input.split(",")
+    const currentTag =
+      tagArray.length > 0 ? tagArray[tagArray.length - 1] : input
+    //console.log("currentTag:", currentTag)
+
+    fetchTagsRequest(currentTag)
+  }
+
+  function handleClickTag(tag) {
+    const tagArray = tags.split(",")
+    const currentTag =
+      tagArray.length > 0 ? tagArray[tagArray.length - 1] : tags
+    const updatedTags = tags.replace(currentTag, tag)
+    setTags(updatedTags)
+    setTagResults(null)
+  }
 
   const handleChangeDetails = debounce(value => {
     const text = value()
@@ -44,6 +74,16 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
     localStorage.setItem("code", text)
     setCode(text)
   }, 250)
+
+  async function fetchTagsRequest(tag) {
+    const res = await fetch(`/api/team/${handle}/tags?search=${tag}`)
+    const data = await res.json()
+    console.log(data)
+    const { authorized, tags } = data
+    if (authorized) {
+      setTagResults(tags)
+    }
+  }
 
   async function fetchEntryRequest() {
     if (window.location.pathname.includes("new")) {
@@ -201,9 +241,44 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
                           transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                   placeholder="javascript,react,authentication,login,security"
                   value={tags}
-                  onChange={e => setTags(e.target.value)}
+                  onChange={e => handleChangeTags(e.target.value)}
                 />
               </div>
+              <div
+                className={`absolute z-40 mt-2 w-56 rounded-md shadow-lg bg-white 
+              ring-1 ring-black ring-opacity-5 ${
+                tagResults && tagResults.length > 0 && tags.length > 0
+                  ? ""
+                  : "hidden"
+              }`}
+              >
+                <div
+                  className="py-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  {tagResults
+                    ? tagResults.map((tag: Tag) => (
+                        <a
+                          key={tag.id}
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                          onClick={() => handleClickTag(tag.name)}
+                        >
+                          <span
+                            className="px-2 inline-flex text-xs leading-5 font-semibold 
+                    rounded-full bg-blue-100 text-blue-800"
+                          >
+                            {tag.name}
+                          </span>
+                        </a>
+                      ))
+                    : null}
+                </div>
+              </div>
+
               <p className="mt-2 text-sm text-gray-500">
                 Separate each tag by a comma.
               </p>
