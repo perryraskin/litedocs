@@ -22,6 +22,7 @@ export interface Entry {
 }
 
 export interface Tag {
+  id: number
   entryId: number
   name: string
 }
