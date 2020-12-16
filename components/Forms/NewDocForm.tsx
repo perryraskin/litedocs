@@ -381,7 +381,7 @@ const NewDocForm: NextPage<Props> = ({ handle }) => {
   )
 }
 
-export default withLayout(NewDocForm)
+export default NewDocForm
 
 const bodyTemplate = `
 **Client:** Example Client Name
