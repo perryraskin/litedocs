@@ -19,9 +19,10 @@ import { Team } from "../../models/interfaces"
 interface Props {
   team?: Team
   handle?: string
+  tag?: string
 }
 
-const TeamLayout: NextPage<Props> = ({ team, handle }) => {
+const TeamLayout: NextPage<Props> = ({ team, handle, tag }) => {
   const [loggedIn, setLoggedIn] = React.useContext(LoggedInContext)
   const [isLoading, setIsLoading] = React.useContext(LoadingContext)
 
@@ -38,7 +39,7 @@ const TeamLayout: NextPage<Props> = ({ team, handle }) => {
   } else if (loggedIn) {
     return (
       <>
-        <TeamDocs handle={handle} />
+        <TeamDocs handle={handle} tag={tag} />
       </>
     )
   } else

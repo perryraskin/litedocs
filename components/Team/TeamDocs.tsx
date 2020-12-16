@@ -14,15 +14,16 @@ import { Team, Entry } from "../../models/interfaces"
 interface Props {
   team?: Team
   handle?: string
+  tag?: string
 }
 
-const TeamDocs: NextPage<Props> = ({ team, handle }) => {
+const TeamDocs: NextPage<Props> = ({ team, handle, tag }) => {
   const [magic, setMagic] = React.useContext(MagicContext)
 
   const user = magic.user.getMetadata()
   const [currentTeam, setCurrentTeam] = React.useState(null)
   async function fetchTeamRequest() {
-    let res = await fetch(`/api/team/${handle}`, {
+    let res = await fetch(`/api/team/${handle}?tag=${tag}`, {
       method: "GET"
     })
     const data = await res.json()
