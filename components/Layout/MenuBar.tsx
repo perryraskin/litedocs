@@ -70,13 +70,16 @@ const MenuBar: NextPage<Props> = ({}) => {
             <line x1="4" y1="18" x2="20" y2="18" />
           </svg> */}
         </div>
-        <div className="text-xl text-white font-bold tracking-tight ml-2">
+        {/* <div className="text-xl text-white font-bold tracking-tight ml-2">
           <Link href={`/`}>
             <a>LiteDocs</a>
           </Link>
-        </div>
+        </div> */}
       </div>
-      <div className="hidden md:block">
+      <div
+        hidden
+        // className="hidden md:block"
+      >
         <div className="flex items-baseline space-x-4 fixed left-40 top-4">
           <Link href="/">
             <a
@@ -109,7 +112,7 @@ const MenuBar: NextPage<Props> = ({}) => {
         </div>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center mr-64">
         <a
           href="#"
           className="text-white p-2 rounded-full 

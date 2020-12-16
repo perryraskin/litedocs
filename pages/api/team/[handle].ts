@@ -10,18 +10,32 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
   const prisma = new PrismaClient({ log: ["query"] })
   const {
-    query: { handle }
+    query: { handle, tag }
   } = req
-
+  console.log(req.query)
   const teamHandle = handle as unknown
   const teamHandleString = teamHandle as string
+
+  const tagName = tag as unknown
+  const tagNameString = tagName as string
   try {
+    let entryFilters: any = true
+    if (tag != "null") {
+      entryFilters = {
+        where: {
+          tagsText: {
+            contains: tagNameString
+          }
+        }
+      }
+    }
+
     const team = await prisma.team.findOne({
       where: {
         handle: teamHandleString
       },
       include: {
-        Entries: true,
+        Entries: entryFilters,
         Members: true
       }
     })
