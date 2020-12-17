@@ -116,22 +116,36 @@ const DocView: NextPage<Props> = ({ entry }) => {
       <div className="text-xs">
         <img
           className={`inline-block h-6 w-6 rounded-full mr-1
-          ${lastUpdatedLog.User.imageUrl ? "" : "hidden"}`}
-          src={lastUpdatedLog.User.imageUrl}
+          ${
+            lastUpdatedLog
+              ? lastUpdatedLog.User.imageUrl
+                ? ""
+                : "hidden"
+              : null
+          }`}
+          src={lastUpdatedLog ? lastUpdatedLog.User.imageUrl : null}
           alt=""
         ></img>
         <div
           className={`inline-block font-bold w-5 h-5 bg-blue-600 
           text-white text-center justify-center rounded-full mr-1
-          ${lastUpdatedLog.User.imageUrl ? "hidden" : ""}`}
+          ${
+            lastUpdatedLog
+              ? lastUpdatedLog.User.imageUrl
+                ? "hidden"
+                : ""
+              : null
+          }`}
         >
           <span className="m-1">
-            {lastUpdatedLog.User.name
-              ? lastUpdatedLog.User.name.substring(0, 1)
-              : "?"}
+            {lastUpdatedLog
+              ? lastUpdatedLog.User.name
+                ? lastUpdatedLog.User.name.substring(0, 1)
+                : "?"
+              : null}
           </span>
         </div>
-        {lastUpdatedLog.User.name} updated{" "}
+        {lastUpdatedLog ? lastUpdatedLog.User.name : null} updated{" "}
         {dayjs.utc(entry.dateUpdated).format("MM/DD/YYYY")}
       </div>
 

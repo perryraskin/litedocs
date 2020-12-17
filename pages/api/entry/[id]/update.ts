@@ -68,9 +68,14 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
             id: user.id
           }
         },
-        Entry: {
+        EntryHistory: {
           connect: {
             id: entryHistory.id
+          }
+        },
+        Entry: {
+          connect: {
+            id: entryResponse.id
           }
         }
       }
