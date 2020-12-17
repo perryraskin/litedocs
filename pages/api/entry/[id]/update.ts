@@ -24,12 +24,17 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         id: parseInt(entryIdString)
       },
       include: {
-        Author: true
+        Author: true,
+        Team: {
+          include: {
+            Members: true
+          }
+        }
       }
     })
 
-    const isMember = entry.Team
-      ? entry.Team.Members.some(m => m.userId === user.id)
+    const isMember = existingEntry.Team
+      ? existingEntry.Team.Members.some(m => m.userId === user.id)
       : false
 
     if (existingEntry.Author.issuer !== user.issuer && !isMember) {
