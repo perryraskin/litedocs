@@ -52,6 +52,36 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
     const newTags = await handleAddTags(prisma, newEntry, tagsText)
 
+    //log history record
+    const entryHistory = await prisma.entryHistory.create({
+      data: {
+        title,
+        tagsText,
+        body,
+        code,
+        Entry: {
+          connect: {
+            id: newEntry.id
+          }
+        }
+      }
+    })
+
+    const log = await prisma.log.create({
+      data: {
+        User: {
+          connect: {
+            id: user.id
+          }
+        },
+        Entry: {
+          connect: {
+            id: entryHistory.id
+          }
+        }
+      }
+    })
+
     res.status(201)
     res.json({ entryResponse: newEntry, newTags })
   } catch (err) {

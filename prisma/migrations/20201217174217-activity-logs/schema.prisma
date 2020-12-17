@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -23,20 +23,19 @@ model User {
 }
 
 model Entry {
-  id          Int            @id @default(autoincrement())
-  createdAt   DateTime       @default(now())
-  userId      Int?
-  teamId      Int?
-  title       String
-  tagsText    String
-  body        String
-  code        String
-  Tags        Tag[]
-  Author      User?          @relation(fields: [userId], references: [id])
-  Team        Team?          @relation(fields: [teamId], references: [id])
-  dateUpdated DateTime       @default(now())
-  History     EntryHistory[]
-  Logs        Log[]
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  userId       Int?
+  teamId       Int?
+  title        String
+  tagsText     String
+  body         String
+  code         String
+  Tags         Tag[]
+  Author       User?          @relation(fields: [userId], references: [id])
+  Team         Team?          @relation(fields: [teamId], references: [id])
+  dateUpdated  DateTime       @default(now())
+  EntryHistory EntryHistory[]
 }
 
 model Tag {
@@ -60,14 +59,12 @@ model EntryHistory {
 }
 
 model Log {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  userId       Int?
-  historyId    Int?
-  entryId      Int?
-  User         User?         @relation(fields: [userId], references: [id])
-  EntryHistory EntryHistory? @relation(fields: [historyId], references: [id])
-  Entry        Entry?        @relation(fields: [entryId], references: [id])
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  userId    Int?
+  historyId Int?
+  User      User?         @relation(fields: [userId], references: [id])
+  Entry     EntryHistory? @relation(fields: [historyId], references: [id])
 }
 
 model Team {

@@ -18,9 +18,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
   if (userIdString !== user.issuer) {
     res.status(401)
     res.json({ authorized: false })
-  }
-
-  if (method === "GET") {
+  } else if (method === "GET") {
     try {
       const memberships = await prisma.member.findMany({
         where: {

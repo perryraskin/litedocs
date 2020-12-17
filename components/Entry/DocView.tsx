@@ -15,13 +15,23 @@ const beautifyJS = beautify.js
 
 import Section from "../Layout/Section"
 
-import { Entry } from "../../models/interfaces"
+import { User, Entry, EntryHistory, Log } from "../../models/interfaces"
 
 interface Props {
   entry: Entry
 }
 
-const TeamDocs: NextPage<Props> = ({ entry }) => {
+const DocView: NextPage<Props> = ({ entry }) => {
+  const lastUpdatedLog: Log = entry.Logs[entry.Logs.length - 1]
+  const logUsers: Array<User> = entry.Logs.map(log => log.User)
+  let userIdSet = new Set()
+  let authors: Array<User> = []
+  logUsers.forEach((user: User) => {
+    if (!userIdSet.has(user.id)) {
+      userIdSet.add(user.id)
+      authors.push(user)
+    }
+  })
   return (
     <Section extend="mb-10">
       <div className="uppercase text-xxs font-semibold mb-4">
@@ -82,9 +92,49 @@ const TeamDocs: NextPage<Props> = ({ entry }) => {
           )
         })}
       </div>
-      <div className="text-xs">
-        Updated {dayjs.utc(entry.dateUpdated).format("MM/DD/YYYY")}
+      <div className="flex -space-x-2 overflow-hidden mb-6">
+        {authors.map((author: User) => (
+          <>
+            <img
+              className={`inline-block h-10 w-10 rounded-full border-2 border-white
+          ${author.imageUrl ? "" : "hidden"}`}
+              src={author.imageUrl}
+              alt=""
+            ></img>
+            <div
+              className={`inline-block font-bold w-10 h-10 bg-blue-600 
+          text-white text-center justify-center rounded-full border-2 border-white
+          ${author.imageUrl ? "hidden" : ""}`}
+            >
+              <span className="m-1 text-2xl">
+                {author.name ? author.name.substring(0, 1) : "?"}
+              </span>
+            </div>
+          </>
+        ))}
       </div>
+      <div className="text-xs">
+        <img
+          className={`inline-block h-6 w-6 rounded-full mr-1
+          ${lastUpdatedLog.User.imageUrl ? "" : "hidden"}`}
+          src={lastUpdatedLog.User.imageUrl}
+          alt=""
+        ></img>
+        <div
+          className={`inline-block font-bold w-5 h-5 bg-blue-600 
+          text-white text-center justify-center rounded-full mr-1
+          ${lastUpdatedLog.User.imageUrl ? "hidden" : ""}`}
+        >
+          <span className="m-1">
+            {lastUpdatedLog.User.name
+              ? lastUpdatedLog.User.name.substring(0, 1)
+              : "?"}
+          </span>
+        </div>
+        {lastUpdatedLog.User.name} updated{" "}
+        {dayjs.utc(entry.dateUpdated).format("MM/DD/YYYY")}
+      </div>
+
       <div className="flex flex-col mt-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -126,7 +176,7 @@ const TeamDocs: NextPage<Props> = ({ entry }) => {
   )
 }
 
-export default TeamDocs
+export default DocView
 
 export const Wrapper = styled.div`
   font-family: sans-serif;

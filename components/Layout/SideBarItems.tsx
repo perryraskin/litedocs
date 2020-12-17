@@ -88,7 +88,7 @@ const SideBarItems: NextPage<SideBarItemsProps> = ({ teamTagsList }) => {
       </li> */}
       </ul>
       {teamTagsList.map((teamTags: TeamTags) => (
-        <>
+        <div key={teamTags.team}>
           <a href={`/${teamTags.team}`}>
             <h3
               className={`mt-2 mb-0 px-2 py-2 rounded-lg flex items-center font-semibold text-white 
@@ -113,7 +113,7 @@ const SideBarItems: NextPage<SideBarItemsProps> = ({ teamTagsList }) => {
               </a>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </>
   )

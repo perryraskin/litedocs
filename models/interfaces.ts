@@ -2,6 +2,7 @@ export interface User {
   id: number
   name: string
   email: string
+  imageUrl: string
   Entries: Array<Entry>
   Memberships: Array<Member>
 }
@@ -19,12 +20,35 @@ export interface Entry {
   Tags: Array<Tag>
   Author: User
   Team: Team
+  History: Array<EntryHistory>
+  Logs: Array<Log>
 }
 
 export interface Tag {
   id: number
   entryId: number
   name: string
+}
+
+export interface EntryHistory {
+  id: number
+  createdAt: Date
+  title: string
+  tagsText: string
+  body: string
+  code: string
+  Log: Array<Log>
+}
+
+export interface Log {
+  id: number
+  createdAt: Date
+  userId: number
+  historyId: number
+  entryId: number
+  User: User
+  EntryHistory: EntryHistory
+  Entry: Entry
 }
 
 export interface Team {
