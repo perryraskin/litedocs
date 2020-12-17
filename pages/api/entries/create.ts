@@ -28,26 +28,45 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
       }
     }
     if (handle) {
-      entryData = {
-        data: {
-          title,
-          tagsText,
-          body,
-          code,
-          dateUpdated: new Date(),
-          Author: {
-            connect: {
-              issuer: user.issuer
-            }
-          },
-          Team: {
-            connect: {
-              handle: handle
+      //check if user is a member of the team
+      const team = await prisma.team.findOne({
+        where: {
+          handle
+        },
+        include: {
+          Members: true
+        }
+      })
+
+      const isMember = team.Members.some(m => m.userId === user.id)
+      if (!isMember) {
+        res.status(401)
+        res.json({ authorized: false })
+      }
+      //entry can only be submitted to team if user is a member
+      else {
+        entryData = {
+          data: {
+            title,
+            tagsText,
+            body,
+            code,
+            dateUpdated: new Date(),
+            Author: {
+              connect: {
+                issuer: user.issuer
+              }
+            },
+            Team: {
+              connect: {
+                handle: handle
+              }
             }
           }
         }
       }
     }
+
     const newEntry = await prisma.entry.create(entryData)
 
     const newTags = await handleAddTags(prisma, newEntry, tagsText)
