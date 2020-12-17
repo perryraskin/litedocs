@@ -137,12 +137,11 @@ const MenuBar: NextPage<Props> = ({}) => {
 
         <div className="relative">
           <div
+            id="userInitials"
             className="cursor-pointer font-bold w-10 h-10 bg-blue-600 
             text-white flex items-center justify-center rounded-full border-2 border-white"
             onClick={() => setIsDropDownOpen(true)}
-          >
-            AJ
-          </div>
+          ></div>
 
           {isDropDownOpen ? (
             <div

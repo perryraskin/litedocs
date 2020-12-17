@@ -30,6 +30,9 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         Logs: {
           include: {
             User: true
+          },
+          orderBy: {
+            createdAt: "desc"
           }
         }
       }
