@@ -1,0 +1,97 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Entry",
+      "field": "History",
+      "type": "EntryHistory",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Entry",
+      "field": "Logs",
+      "type": "Log",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Entry",
+      "field": "EntryHistory"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Log",
+      "field": "entryId",
+      "type": "Int",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Log",
+      "field": "EntryHistory",
+      "type": "EntryHistory",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Log",
+          "field": "EntryHistory"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Log",
+          "field": "EntryHistory"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[historyId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Log",
+          "field": "EntryHistory"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Log",
+      "field": "Entry",
+      "type": "Entry"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Log",
+          "field": "Entry"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "newValue": "[entryId]"
+    }
+  ]
+}

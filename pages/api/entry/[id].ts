@@ -25,6 +25,12 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
           include: {
             Members: true
           }
+        },
+        History: true,
+        Logs: {
+          include: {
+            User: true
+          }
         }
       }
     })
