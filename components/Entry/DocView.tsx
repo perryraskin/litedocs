@@ -94,7 +94,7 @@ const DocView: NextPage<Props> = ({ entry }) => {
       </div>
       <div className="flex -space-x-2 overflow-hidden mb-6">
         {authors.map((author: User) => (
-          <>
+          <div key={author.id}>
             <img
               className={`inline-block h-10 w-10 rounded-full border-2 border-white
           ${author.imageUrl ? "" : "hidden"}`}
@@ -110,7 +110,7 @@ const DocView: NextPage<Props> = ({ entry }) => {
                 {author.name ? author.name.substring(0, 1) : "?"}
               </span>
             </div>
-          </>
+          </div>
         ))}
       </div>
       <div className="text-xs">

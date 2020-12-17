@@ -28,61 +28,71 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
-    if (existingEntry.Author.issuer !== user.issuer) {
+    const isMember = entry.Team
+      ? entry.Team.Members.some(m => m.userId === user.id)
+      : false
+
+    if (existingEntry.Author.issuer !== user.issuer && !isMember) {
       res.status(401)
       res.json({ authorized: false })
     }
+    //only authorized if user is team member or entry author
+    else {
+      const tagsResponse = await handleUpdateTags(
+        prisma,
+        entryIdString,
+        tagsText
+      )
 
-    const tagsResponse = await handleUpdateTags(prisma, entryIdString, tagsText)
+      const entryResponse = await prisma.entry.update({
+        where: { id: parseInt(entryIdString) },
+        data: {
+          title,
+          tagsText,
+          body,
+          code,
+          dateUpdated: new Date()
+        }
+      })
 
-    const entryResponse = await prisma.entry.update({
-      where: { id: parseInt(entryIdString) },
-      data: {
-        title,
-        tagsText,
-        body,
-        code,
-        dateUpdated: new Date()
-      }
-    })
-
-    //log history record
-    const entryHistory = await prisma.entryHistory.create({
-      data: {
-        title,
-        tagsText,
-        body,
-        code,
-        Entry: {
-          connect: {
-            id: entryResponse.id
+      //log history record
+      const entryHistory = await prisma.entryHistory.create({
+        data: {
+          title,
+          tagsText,
+          body,
+          code,
+          Entry: {
+            connect: {
+              id: entryResponse.id
+            }
           }
         }
-      }
-    })
+      })
 
-    const log = await prisma.log.create({
-      data: {
-        User: {
-          connect: {
-            id: user.id
-          }
-        },
-        EntryHistory: {
-          connect: {
-            id: entryHistory.id
-          }
-        },
-        Entry: {
-          connect: {
-            id: entryResponse.id
+      const log = await prisma.log.create({
+        data: {
+          User: {
+            connect: {
+              id: user.id
+            }
+          },
+          EntryHistory: {
+            connect: {
+              id: entryHistory.id
+            }
+          },
+          Entry: {
+            connect: {
+              id: entryResponse.id
+            }
           }
         }
-      }
-    })
+      })
 
-    res.status(201)
-    res.json({ entryResponse, tagsResponse })
+      res.status(201)
+      res.json({ entryResponse, tagsResponse })
+    }
   } catch (err) {
     res.status(500)
     res.json({ error: err.message })
