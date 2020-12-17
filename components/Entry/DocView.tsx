@@ -12,6 +12,7 @@ import theme from "prism-react-renderer/themes/nightOwl"
 import styled from "styled-components"
 import beautify from "js-beautify"
 const beautifyJS = beautify.js
+import DataTable, { defaultThemes } from "react-data-table-component"
 
 import Section from "../Layout/Section"
 
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const DocView: NextPage<Props> = ({ entry }) => {
+  const now = dayjs()
+
   const lastUpdatedLog: Log = entry.Logs[entry.Logs.length - 1]
   const logUsers: Array<User> = entry.Logs.map(log => log.User)
   let userIdSet = new Set()
@@ -32,6 +35,62 @@ const DocView: NextPage<Props> = ({ entry }) => {
       authors.push(user)
     }
   })
+
+  const activityStyles = {
+    header: {
+      style: {
+        minHeight: "56px",
+        fontSize: "18px"
+      }
+    },
+    headRow: {
+      style: {
+        borderTopStyle: "solid",
+        borderTopWidth: "1px",
+        borderBottomWidth: "2px",
+        borderTopColor: defaultThemes.default.divider.default
+      }
+    },
+    headCells: {
+      style: {
+        "&:not(:last-of-type)": {
+          borderRightStyle: "solid",
+          borderRightWidth: "1px",
+          borderRightColor: defaultThemes.default.divider.default
+        }
+      }
+    },
+    cells: {
+      style: {
+        "&:not(:last-of-type)": {
+          borderRightStyle: "solid",
+          borderRightWidth: "1px",
+          borderRightColor: defaultThemes.default.divider.default
+        }
+      }
+    }
+  }
+
+  const activityData = entry.Logs
+  const activityColumns = [
+    {
+      name: "Date/Time",
+      sortable: true,
+      cell: (row: Log) => (
+        <div>{dayjs(row.createdAt).format("MM/DD/YYYY h:mm A")}</div>
+      )
+    },
+    {
+      name: "Author",
+      sortable: true,
+      cell: (row: Log) => <div>{row.User.name}</div>
+    },
+    {
+      name: "Action",
+      sortable: false,
+      cell: row => <div>Updated document</div>
+    }
+  ]
   return (
     <Section extend="mb-10">
       <div className="uppercase text-xxs font-semibold mb-4">
@@ -124,7 +183,8 @@ const DocView: NextPage<Props> = ({ entry }) => {
               : null
           }`}
           src={lastUpdatedLog ? lastUpdatedLog.User.imageUrl : null}
-          alt=""
+          alt={lastUpdatedLog ? lastUpdatedLog.User.name : ""}
+          title={lastUpdatedLog ? lastUpdatedLog.User.name : ""}
         ></img>
         <div
           className={`inline-block font-bold w-5 h-5 bg-blue-600 
@@ -185,6 +245,18 @@ const DocView: NextPage<Props> = ({ entry }) => {
             </Pre>
           )}
         </Highlight>
+      </div>
+      <div className="mt-6 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
+        <div className="">
+          <DataTable
+            title="Activity"
+            columns={activityColumns}
+            data={activityData}
+            customStyles={activityStyles}
+            pagination
+            dense
+          />
+        </div>
       </div>
     </Section>
   )

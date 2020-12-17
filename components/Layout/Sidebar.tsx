@@ -30,7 +30,11 @@ const SideBar: NextPage<SideBarProps> = ({ openSidebar, setOpenSidebar }) => {
     let resUser = await fetch(`/api/user/magic/${user.issuer}`)
     let dataUser = await resUser.json()
     const dataUserObject: User = dataUser.user
-    setCurrentUser(dataUser.user)
+    setCurrentUser(dataUserObject)
+    const userInitials = document.querySelector("#userInitials")
+    userInitials.innerHTML = dataUserObject.name
+      ? dataUserObject.name.substring(0, 1)
+      : "?"
 
     dataUserObject.Memberships.forEach((membership: Member) => {
       const handle = membership.Team.handle
