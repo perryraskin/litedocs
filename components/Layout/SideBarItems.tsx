@@ -6,7 +6,12 @@ import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 import { NextPage } from "next"
 import Link from "next/link"
 
-import { viewGridIcon, userGroupIcon, hashtagIcon } from "../SVG/Heroicons"
+import {
+  viewGridIcon,
+  documentsIcon,
+  userGroupIcon,
+  hashtagIcon
+} from "../SVG/Heroicons"
 
 import { User, Member, Team, Tag } from "../../models/interfaces"
 
@@ -32,9 +37,9 @@ const SideBarItems: NextPage<SideBarItemsProps> = ({ teamTagsList }) => {
     <>
       <ul>
         <li>
-          <Link href="/dashboard">
+          <Link href="/">
             <a
-              href="/dashboard"
+              href="/"
               className={`mb-1 px-2 py-2 rounded-lg flex items-center font-medium 
             focus:outline-none focus:text-white focus:bg-gray-700 hover:text-white
             ${
@@ -45,6 +50,24 @@ const SideBarItems: NextPage<SideBarItemsProps> = ({ teamTagsList }) => {
             >
               {viewGridIcon(24, 24, "mr-4 opacity-50")}
               Dashboard
+            </a>
+          </Link>
+        </li>
+
+        <li>
+          <Link href="/me">
+            <a
+              href="/me"
+              className={`mb-1 px-2 py-2 rounded-lg flex items-center font-medium 
+            focus:outline-none focus:text-white focus:bg-gray-700 hover:text-white
+            ${
+              currentPath === "/me"
+                ? "text-white bg-gray-900"
+                : "text-gray-300 hover:bg-gray-700"
+            }`}
+            >
+              {documentsIcon(24, 24, "mr-4 opacity-50")}
+              Personal
             </a>
           </Link>
         </li>

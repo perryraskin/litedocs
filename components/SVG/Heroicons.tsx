@@ -4,12 +4,33 @@ import { useContext, useState, useEffect } from "react"
 interface HeroiconsProps {}
 
 const Heroicons: NextPage<HeroiconsProps> = ({}) => {
-  return (
-    <a className="w-full px-2 my-2 overflow-hidden overflow-visible h-65"></a>
-  )
+  return <a className="w-full px-2 my-2 overflow-visible h-65"></a>
 }
 
 export default Heroicons
+
+export const documentsIcon = (width, height, extend?) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      className={extend}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+      />
+    </svg>
+  )
+}
 
 export const documentTextIcon = (width, height, extend?) => {
   return (

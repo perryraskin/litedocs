@@ -9,8 +9,8 @@ import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
 import { MagicContext, LoggedInContext, LoadingContext } from "../Store"
 
-import Landing from "./Landing"
-import Dashboard from "./Dashboard"
+import Landing from "../Home/Landing"
+import Entries from "./Entries"
 import Section from "../Layout/Section"
 import Login from "../Forms/Login"
 
@@ -31,7 +31,7 @@ const HomeLayout: NextPage<Props> = ({}) => {
       </Section>
     )
   } else if (loggedIn) {
-    return <Dashboard />
+    return <Entries />
   } else
     return (
       <React.Fragment>
