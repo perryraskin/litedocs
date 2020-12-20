@@ -88,6 +88,7 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
 
     const log = await prisma.log.create({
       data: {
+        note: "Created document",
         User: {
           connect: {
             id: user.id

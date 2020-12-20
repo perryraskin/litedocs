@@ -58,7 +58,7 @@ const MenuBar: NextPage<Props> = ({}) => {
   return (
     <div className="z-40 fixed top-0 w-full px-4 md:px-8 py-2 h-16 flex justify-between items-center shadow bg-gray-800">
       <div className="flex items-center">
-        {/* <input className="bg-gray-200 focus:outline-none focus:shadow-outline focus:bg-white border border-transparent focus:border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal hidden md:block placeholder-gray-700 mr-10" type="text" placeholder="Search..."></input> */}
+        {/* <input className="bg-gray-200 focus:outline-none focus:shadow-outline focus:bg-white border border-transparent focus:border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal hidden md:block placeholder-gray-700 mr-10" type="text" placeholder="Search..."></input> */}
 
         <div className="p-2 rounded-full hover:bg-gray-200 cursor-pointer hidden">
           {/* <svg xmlns="http://www.w3.org/2000/svg" className="

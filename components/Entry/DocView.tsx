@@ -88,7 +88,7 @@ const DocView: NextPage<Props> = ({ entry }) => {
     {
       name: "Action",
       sortable: false,
-      cell: row => <div>Updated document</div>
+      cell: (row: Log) => <div>{row.note}</div>
     }
   ]
   return (

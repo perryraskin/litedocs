@@ -46,6 +46,7 @@ export interface Log {
   userId: number
   historyId: number
   entryId: number
+  note: string
   User: User
   EntryHistory: EntryHistory
   Entry: Entry
