@@ -30,9 +30,5 @@ module.exports = {
     spinner: ["responsive"],
     transitionProperty: ["responsive"]
   },
-  plugins: [
-    require("tailwindcss-spinner")(),
-    require("@tailwindcss/ui"),
-    require("autoprefixer")
-  ]
+  plugins: []
 }
