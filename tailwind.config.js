@@ -30,11 +30,5 @@ module.exports = {
     spinner: ["responsive"],
     transitionProperty: ["responsive"]
   },
-  plugins: [
-    //require("tailwindcss-dark-mode")(),
-    require("tailwindcss-spinner")(),
-    require("@tailwindcss/ui"),
-    require("autoprefixer")
-    //require('tailwindcss-plugin-heroicons')({variants: ['responsive', 'hover']})
-  ]
+  plugins: []
 }

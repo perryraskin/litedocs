@@ -103,6 +103,11 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
           connect: {
             id: newEntry.id
           }
+        },
+        Team: {
+          connect: {
+            id: newEntry.teamId
+          }
         }
       }
     })

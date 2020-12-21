@@ -40,7 +40,17 @@ const DocView: NextPage<Props> = ({ entry }) => {
     header: {
       style: {
         minHeight: "56px",
-        fontSize: "18px"
+        fontSize: "14px",
+        letterSpacing: ".05em",
+        textTransform: "uppercase",
+        color: "rgba(113,128,150,1)",
+        top: 0,
+        position: "sticky",
+        paddingLeft: "1.5rem",
+        paddingRight: "1.5rem",
+        paddingTop: "0.5rem",
+        paddingBottom: "0.5rem",
+        fontWeight: 900
       }
     },
     headRow: {
@@ -53,20 +63,30 @@ const DocView: NextPage<Props> = ({ entry }) => {
     },
     headCells: {
       style: {
-        "&:not(:last-of-type)": {
-          borderRightStyle: "solid",
-          borderRightWidth: "1px",
-          borderRightColor: defaultThemes.default.divider.default
-        }
+        letterSpacing: ".05em",
+        textTransform: "uppercase",
+        color: "rgba(113,128,150,1)",
+        top: 0,
+        position: "sticky",
+        // paddingLeft: "1.5rem",
+        // paddingRight: "1.5rem",
+        paddingTop: "0.5rem",
+        paddingBottom: "0.5rem",
+        fontSize: "0.75rem",
+        fontWeight: 700,
+        borderBottomWidth: "1px",
+        borderColor: "rgba(237,242,247,1)",
+        backgroundColor: "rgba(247,250,252,1)"
       }
     },
     cells: {
       style: {
-        "&:not(:last-of-type)": {
-          borderRightStyle: "solid",
-          borderRightWidth: "1px",
-          borderRightColor: defaultThemes.default.divider.default
-        }
+        // "&:not(:last-of-type)": {
+        //   borderTopWidth: "0px",
+        //   borderBottomWidth: "1px",
+        //   borderStyle: "dashed",
+        //   borderColor: "rgba(237,242,247,1)"
+        // }
       }
     }
   }
