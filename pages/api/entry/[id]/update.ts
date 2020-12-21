@@ -92,6 +92,11 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
             connect: {
               id: entryResponse.id
             }
+          },
+          Team: {
+            connect: {
+              id: entryResponse.teamId
+            }
           }
         }
       })
