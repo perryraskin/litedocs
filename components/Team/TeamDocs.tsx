@@ -117,7 +117,7 @@ const TeamDocs: NextPage<Props> = ({ team, handle, tag }) => {
                           <tr key={entry.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                <div className="ml-4">
+                                <div className="">
                                   <div className="text-sm leading-5 font-medium">
                                     <Link
                                       href="/entry/[entryid]"
