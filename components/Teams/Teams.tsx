@@ -60,7 +60,7 @@ const Teams: NextPage<Props> = ({}) => {
                     ? memberships.map((membership: Member) => {
                         return (
                           <tr key={membership.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-no-wrap">
+                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">
                                   <img
@@ -83,12 +83,12 @@ const Teams: NextPage<Props> = ({}) => {
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-no-wrap">
+                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm leading-5 text-gray-900">
                                 {membership.Team.handle}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-no-wrap">
+                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm leading-5 text-gray-900">
                                 {dayjs
                                   .utc(membership.createdAt)
@@ -96,7 +96,7 @@ const Teams: NextPage<Props> = ({}) => {
                               </div>
                             </td>
                             {/* <td
-                              className="px-6 py-4 whitespace-no-wrap text-right 
+                              className="px-6 py-4 whitespace-nowrap text-right 
                             text-sm leading-5 font-medium"
                             >
                               <Link
