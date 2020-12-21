@@ -67,7 +67,7 @@ const Entries: NextPage<Props> = ({}) => {
       <div className="flex flex-col mt-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="shadow overflow-hidden border-b bg-white border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
@@ -91,7 +91,7 @@ const Entries: NextPage<Props> = ({}) => {
                     ? currentEntries.map((entry: Entry) => {
                         return (
                           <tr key={entry.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-no-wrap">
+                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm leading-5 font-medium">
                                 <Link
                                   href="/entry/[entryid]"
@@ -101,8 +101,8 @@ const Entries: NextPage<Props> = ({}) => {
                                 </Link>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-no-wrap">
-                              <div className="text-sm w-48 whitespace-no-wrap flex flex-row overflow-x-auto leading-5 text-gray-900">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm w-48 whitespace-nowrap flex flex-row overflow-x-auto leading-5 text-gray-900">
                                 {entry.tagsText.split(",").map(tag => {
                                   return (
                                     <span
@@ -119,20 +119,20 @@ const Entries: NextPage<Props> = ({}) => {
                           Optimization
                         </div> */}
                             </td>
-                            <td className="px-6 py-4 whitespace-no-wrap">
+                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm leading-5 text-gray-900">
                                 {dayjs
                                   .utc(entry.createdAt)
                                   .format("MM/DD/YYYY")}
                               </div>
                             </td>
-                            <td className="text-sm px-6 py-4 whitespace-no-wrap">
+                            <td className="text-sm px-6 py-4 whitespace-nowrap">
                               {dayjs
                                 .utc(entry.dateUpdated)
                                 .format("MM/DD/YYYY")}
                             </td>
                             {/* <td
-                              className="px-6 py-4 whitespace-no-wrap text-right 
+                              className="px-6 py-4 whitespace-nowrap text-right 
                             text-sm leading-5 font-medium"
                             >
                               <Link

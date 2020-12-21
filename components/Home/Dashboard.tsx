@@ -169,7 +169,10 @@ const Dashboard: NextPage<Props> = ({}) => {
         const team: Team = teamLogObject.team
         const logs: Array<Log> = teamLogObject.logs
         return (
-          <div className="mt-6 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white">
+          <div
+            key={team.id}
+            className="mt-6 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-white"
+          >
             <div className="">
               <DataTable
                 title={`${team.name} Activity`}
